@@ -1,0 +1,136 @@
+{% extends "course/base.html" %}
+{% load custom_tags %}
+{% load static %}
+{% block title %}
+LearnnHit
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container col-xxl-10 px-4 py-5" style="border-radius: 25px;">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5 ">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img src="static/images/hero.png" class="d-block mx-lg-auto img-fluid" alt="Hero Image" width="800" height="700" loading="lazy" style="border-radius: 25%;">
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold lh-1 mb-3" style="color: rgb(0, 208, 0);">Learn Anytime, Anywhere</h1>
+      <p class="lead">Join thousands of learners and boost your skills with expert-led courses in programming, data science, and more.</p>
+
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <form action="{% url 'search' %}" method='GET'>
+              <div class="input-group">
+                <input class="form-control" name = 'keyword' type="text" placeholder="Search course..." aria-label="Search course..." aria-describedby="button-search" />
+                <button class="btn" type="submit" style="background-color: #00d000; color: white;">
+                  <i class="bi bi-search"></i>
+                </button>
+            </div>
+            </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<section id="features" class="padding-medium">
+    <div class="container py-5">
+  <div class="text-center my-5">
+        <h2 class="display-5 fw-semibold">Why <span class="glow-text">Choose Us</span></h2>
+      </div>
+  <div class="row g-md-4">
+    {% for feature in features %}
+      <div class="col-md-4 mt-4">
+        <div class="services-element p-4 rounded-3 d-flex bg-dark text-white shadow-sm">
+          <div>
+            <i class="{{ feature.icon }} fs-1 {{ feature.icon_color }}"></i>
+          </div>
+          <div class="ps-3">
+            <h4 class="py-2 m-0">{{ feature.title }}</h4>
+            <p class="mb-0">{{ feature.desc }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+  </section>
+
+
+
+<section id="course">
+<div class="text-center my-5">
+        <h2 class="display-5 fw-semibold">Check our <span class="glow-text">top selling courses</span></h2>
+      </div>
+
+<div class='container-fluid'>
+  <div class="container">
+  <div class="row">
+    {% for item in course %}
+    <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
+            <div class="card green-hover d-flex flex-column custom-card">
+
+
+              <a href="{% url 'course_page' item.slug %}">
+                <img src="{{ item.thumbnail.url }}" class="card-img-top fixed-thumbnail" alt="Course Thumbnail">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                    <span style="font-size: 15px; color: rgb(174, 172, 172);">
+                     <i class="bi bi-clock"></i> {{item.length}} hr </span> <br>
+
+                     {% is_enrolled request item as enrolled %}
+                     {% if enrolled %}
+                       <span style="font-size: 20px; color: #0fb80f;">Enrolled</span>
+                     {% else %}
+  
+                  {% if item.discount != 0 %}
+                    <br>Save {{ item.discount }}%
+                    <br>
+                    <span style="font-size: 20px;">
+                      <del style="color: rgb(153, 152, 152);">{{ item.price|rupee }}</del> &nbsp;
+                      <span style="font-size: 20px; color: #0fb80f;">
+                        {% dis_price item.price item.discount as value %}
+                        {{ value|rupee }}
+                      </span>
+                    </span>
+                  {% else %}
+                    <br><br>
+                    {% if item.price == 0 %}
+                    <span style="font-size: 20px; color: #0fb80f;">FREE</span>
+                      {% else %}
+                    <span style="font-size: 20px; color: #0fb80f;">{{ item.price|rupee }}</span>
+                     {% endif %}
+                  {% endif %}
+                {% endif %}
+              </div>
+              
+                <div class="row g-0">
+                  
+                  {% if enrolled %}
+                    <div class="col">
+                      <a href="{% url 'course_page' item.slug %}" class="btn btn-outline-custom-white">
+                        Start Course
+                      </a>
+                    </div>
+                  {% else %}
+                    <div class="d-flex gap-2">
+             <a href="{% url 'enroll' item.slug %}" class="btn btn-outline-custom">Enroll Now</a>
+ 
+              </div>
+
+                  {% endif %}
+                </div>
+              
+            </div>
+          </div>
+    {% endfor %}
+  </div>
+  </div>
+  </div>
+  </section>
+
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends "course/base.html" %}
+{% load custom_tags %}
+{% load static %}
+
+{% block title %}
+LearnnHit
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+    <form method="POST" class="form-signin">
+      {% csrf_token %}
+      <div class="text-center">
+        <img class="mb-4" src="{% static 'images/student_icon.png' %}" alt="logo" height="72" width="72">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+      </div>
+
+      <!-- General form errors -->
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+          {% for error in form.non_field_errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Username -->
+       <label for="inputUsername" class="sr-only">Username</label>
+      <input type="text" name="username" class="form-control mb-2"
+             placeholder="Username" required autofocus value="{{ form.username.value|default:'' }}">
+      {% if form.username.errors %}
+        <div class="text-danger">{{ form.username.errors.0 }}</div>
+      {% endif %}
+
+      <!-- Password -->
+       <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" name="password" class="form-control mb-2"
+             placeholder="Password" required>
+      {% if form.password.errors %}
+        <div class="text-danger">{{ form.password.errors.0 }}</div>
+      {% endif %}
+
+      <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Login</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

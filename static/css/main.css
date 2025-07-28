@@ -1,0 +1,177 @@
+
+body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Navbar and Footer */
+    .navbar, .footer {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+
+    
+
+    /* Card Styling */
+    .card {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #2a2a2a;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        border-radius: 16px;
+    }
+
+    .card-title, .card-text {
+        color: #e0e0e0;
+    }
+
+       /* Forms */
+    input, textarea, select, .form-control {
+        background-color: #2c2c2c;
+        color: #ffffff;
+        border-color: #444;
+    }
+
+    input::placeholder, textarea::placeholder {
+        color: #aaaaaa;
+    }
+
+   
+    /* Divider */
+    hr {
+        border-top: 1px solid #444;
+    }
+
+.green-hover {
+    transition: all 0.3s ease-in-out;
+    border-radius: 15px;
+  }
+
+.green-hover:hover {
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.6);
+    transform: scale(1.05);
+  }
+.glow-text {
+    color: #0fb80f;
+    text-shadow: 0 0 6px rgba(64, 236, 64, 0.919);
+     
+  }
+.custom-card {
+  width: 95%;                /* Slightly narrower than full column */
+  max-width: 23rem;          /* Prevents it from being too wide */
+  min-height: 400px;         /* Keep consistent height */
+  margin: auto;              /* Center it horizontally */
+  border: none;
+  background-color: #000000;
+  color: #fff;
+}
+
+.fixed-thumbnail {
+  border-radius: 5%;
+  height: 220px;
+  object-fit: cover;
+}
+
+
+
+/* Secondary button for "Show More" */
+.btn-outline-custom {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 10rem;
+  background-color: transparent;
+  color: #0fb80f;
+  border: 1px solid #0fb80f;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.btn-outline-custom:hover {
+  background-color: #0fb80f;
+  color: #fff;
+  box-shadow: 0 0 8px #0fb80f88;
+}
+
+.btn-outline-custom-white {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 10rem;
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.btn-outline-custom-white:hover {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 0 8px #8f908f88;
+}
+
+a{
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.hover-text {
+    position: relative;
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease;
+    display: inline-block;
+    margin: 10px;
+}
+
+.hover-text:hover,
+.hover-text.active {
+    color: rgba(0, 255, 0, 0.6);
+}
+
+.hover-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(0, 255, 0, 0.6);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.hover-text:hover::after,
+.hover-text.active::after {
+    transform: scaleX(1);
+}
+.navbar-brand {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+
+.navbar {
+  height: 80px; /* or however tall you want your navbar */
+  padding: 0;
+}
+
+.navbar-brand {
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100%; /* take full navbar height */
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  max-height: 100%; /* keep it inside navbar height */
+  width: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+

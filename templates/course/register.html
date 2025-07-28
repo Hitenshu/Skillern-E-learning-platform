@@ -1,0 +1,64 @@
+{% extends "course/base.html" %}
+{% load custom_tags %}
+{% load static %}
+{% block title %}
+LearnnHit
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+    <form method="POST" class="form-signin">
+      {% csrf_token %}
+      <div class="text-center">
+        <img class="mb-4" src="{% static 'images/student_icon.png' %}" alt="logo"height='72' weight="72">
+        <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+      </div>
+
+      <!-- Username -->
+      <label for="inputUsername" class="sr-only">Username</label>
+      <input type="text" name="username" id="inputUsername" class="form-control"
+             placeholder="Username" required autofocus value="{{ form.username.value|default:'' }}">
+      {% if form.username.errors %}
+        <div class="text-danger">{{ form.username.errors.0 }}</div>
+      {% endif %}
+
+      <label for="inputEmail" class="sr-only">Email</label>
+      <input type="text" name="Email" id="inputEmail" class="form-control"
+             placeholder="Email" required autofocus value="{{ form.Email.value|default:'' }}">
+      {% if form.Email.errors %}
+        <div class="text-danger">{{ form.Email.errors.0 }}</div>
+      {% endif %}
+
+      <label for="inputFirstName" class="sr-only">First Name</label>
+<input type="text" name="first_name" id="inputFirstName" class="form-control" placeholder="First Name" required autofocus value="{{ form.first_name.value|default:'' }}">
+{% if form.first_name.errors %}
+  <div class="text-danger">{{ form.first_name.errors.0 }}</div>
+{% endif %}
+
+<!-- Last Name -->
+<label for="inputLastName" class="sr-only">Last Name</label>
+<input type="text" name="last_name" id="inputLastName" class="form-control" placeholder="Last Name" required autofocus value="{{ form.last_name.value|default:'' }}">
+{% if form.last_name.errors %}
+  <div class="text-danger">{{ form.last_name.errors.0 }}</div>
+{% endif %}
+
+      <!-- Password1 -->
+      <label for="inputPassword1" class="sr-only">Password</label>
+      <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
+      {% if form.password1.errors %}
+        <div class="text-danger">{{ form.password1.errors.0 }}</div>
+      {% endif %}
+
+      <!-- Password2 -->
+      <label for="inputPassword2" class="sr-only">Confirm Password</label>
+      <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm Password" required>
+      {% if form.password2.errors %}
+        <div class="text-danger">{{ form.password2.errors.0 }}</div>
+      {% endif %}
+
+      <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Register</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,111 @@
+{% extends "course/base.html" %}
+{% load custom_tags %}
+{% load static %}
+
+{% block title %}
+LearnnHit
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <!-- Search Bar -->
+  <div class="container">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
+      <form action="{% url 'search' %}" method="GET">
+        <div class="input-group">
+          <input class="form-control" name="keyword" type="text" placeholder="Search course..." aria-label="Search course..." aria-describedby="button-search" />
+          <button class="btn" type="submit" style="background-color: rgb(0, 208, 0); color: white;">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="container">
+    <h3 class="fw-semibold mb-5 mt-3">
+      <span class="glow-text">Showing results for:</span>
+      {% if keyword %}
+        {{ keyword }}
+      {% else %}
+        All Courses
+      {% endif %}
+    </h3>
+
+    {% if course %}
+      <section id="course">
+  <div class="container">
+  <div class="row">
+    {% for item in course %}
+    <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
+            <div class="card green-hover d-flex flex-column custom-card">
+
+
+              <a href="{% url 'course_page' item.slug %}">
+                <img src="{{ item.thumbnail.url }}" class="card-img-top fixed-thumbnail" alt="Course Thumbnail">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                    <span style="font-size: 15px; color: rgb(174, 172, 172);">
+                     <i class="bi bi-clock"></i> {{item.length}} hr </span>
+                  {% is_enrolled request item as enrolled %}
+                     {% if enrolled %}
+                       <br><span style="font-size: 20px; color: #0fb80f;">Enrolled</span>
+                     {% else %}
+  
+                  {% if item.discount != 0 %}
+                    <br>Save {{ item.discount }}%
+                    <br>
+                    <span style="font-size: 20px;">
+                      <del style="color: rgb(153, 152, 152);">{{ item.price|rupee }}</del> &nbsp;
+                      <span style="font-size: 20px; color: #0fb80f;">
+                        {% dis_price item.price item.discount as value %}
+                        {{ value|rupee }}
+                      </span>
+                    </span>
+                  {% else %}
+                    <br><br>
+                    {% if item.price == 0 %}
+                    <span style="font-size: 20px; color: #0fb80f;">FREE</span>
+                      {% else %}
+                    <span style="font-size: 20px; color: #0fb80f;">{{ item.price|rupee }}</span>
+                     {% endif %}
+                  {% endif %}
+                {% endif %}
+              </div>
+              
+                <div class="row g-0">
+                  {% is_enrolled request item as enrolled %}
+                  {% if enrolled %}
+                    <div class="col">
+                      <a href="{% url 'course_page' item.slug %}" class="btn btn-outline-custom-white">
+                        Start Course
+                      </a>
+                    </div>
+                  {% else %}
+                    <div class="d-flex gap-2">
+  <a href="{% url 'enroll' item.slug %}" class="btn btn-outline-custom">Enroll Now</a>
+ 
+</div>
+
+                  {% endif %}
+                </div>
+              
+            </div>
+          </div>
+    {% endfor %}
+  </div>
+  </div>
+  </div>
+  </section>
+    {% else %}
+      <div class="text-center text-danger">
+        <h5>No courses found for "{{ keyword }}"</h5>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}

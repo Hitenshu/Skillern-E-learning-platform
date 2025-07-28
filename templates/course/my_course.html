@@ -1,0 +1,69 @@
+{% extends "course/base.html" %}
+{% load custom_tags %}
+{% load static %}
+{% block title %}LearnnHit{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <!-- User Info Card -->
+  <div class="card p-3 my-4 " style="color: #f0f0f0; border: 1px solid #444; background-color: #13131b;">
+    <h5 class="mb-3" style="color: #ffffff;"><i class="bi bi-person-circle"></i>  User Info</h5>
+    <div class="d-flex justify-content mb-2">
+      <strong style="color: #bbb;">Name:</strong>
+      <span class="mx-3">{{ request.user.get_full_name }}</span>
+    </div>
+    <div class="d-flex justify-content">
+      <strong style="color: #bbb;">Email:</strong>
+      <span class="mx-3">{{ request.user.email }}</span>
+    </div>
+  </div>
+
+
+  <!-- Completed Courses -->
+  <h2 class="text-light mt-5">Completed Courses</h2>
+  <div class="row">
+    {% for item in user_course %}
+      {% has_completed_course request.user item.course as completed %}
+      {% if completed %}
+      <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
+        <div class="card green-hover d-flex flex-column custom-card" style="width: 100%;">
+          <img src="{{ item.course.thumbnail.url }}" class="card-img-top fixed-thumbnail" alt="Course Thumbnail">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.course.name }}</h5>
+            <p class="card-text">{{ item.course.description|slice:":60" }}...</p>
+          </div>
+          <div class="card-footer text-center">
+            <a href="{% url 'course_page' item.course.slug %}" class="btn btn-outline-custom-white w-100 mb-2">Start Course</a>
+            <a target="_blank" href="{% url 'generate_certificate' item.course.id %}" class="btn btn-outline-custom w-100">Download Certificate</a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Ongoing Courses -->
+  <h2 class="text-light mt-5">Ongoing Courses</h2>
+  <div class="row">
+    {% for item in user_course %}
+      {% has_completed_course request.user item.course as completed %}
+      {% if not completed %}
+      <div class="col-lg-4 col-md-6 mb-4 d-flex align-items-stretch">
+        <div class="card green-hover d-flex flex-column custom-card" style="width: 100%;">
+          <img src="{{ item.course.thumbnail.url }}" class="card-img-top fixed-thumbnail" alt="Course Thumbnail">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.course.name }}</h5>
+            <p class="card-text">{{ item.course.description|slice:":60" }}...</p>
+          </div>
+          <div class="card-footer text-center">
+            <a href="{% url 'course_page' item.course.slug %}" class="btn btn-outline-custom-white w-100">Start Course</a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock content %}

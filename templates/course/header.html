@@ -1,0 +1,71 @@
+ {% load static %}
+ <style>
+        /* Apply the background image to the body */
+        
+    
+    
+
+
+    </style>
+<nav class="navbar navbar-expand-lg bg-transparent navbar-dark fs-5">
+    <div class="container-fluid px-lg-5">
+
+        <!-- ✅ Brand: Always visible -->
+         <!-- ✅ Brand: Always visible -->
+<a href="/" class="navbar-brand d-flex align-items-center p-0 m-0">
+    <img src="{% static 'images/logo5.png' %}" alt="Skillern" class="logo-img">
+</a>
+
+        <!-- <a class="navbar-brand fs-4" href="/"><img src="static/images/logo3.png" alt="Skillern" class="logo-img"> </a> -->
+
+        <!-- ✅ Toggler button for small screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- ✅ Collapsible content -->
+        <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo01">
+
+            <!-- ✅ Centered nav links -->
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-center">
+    <li class="nav-item">
+        <a class="nav-link hover-text {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link hover-text {% if 'search' in request.get_full_path %}active{% endif %}" href="{% url 'search' %}?keyword=">Courses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link hover-text" href="{% url 'home' %}#features">Features</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link hover-text {% if request.path == '/about' %}active{% endif %}" href="{% url 'about' %}">About</a>
+    </li>
+    <li class="nav-item">
+        {% if request.user.is_authenticated %}
+            <a class="nav-link hover-text {% if request.path == '/my_course' %}active{% endif %}" href="{% url 'my_course' %}">My Courses</a>
+            {% endif %}
+    </li>
+</ul>
+
+
+            <!-- ✅ Buttons inside collapsible -->
+            <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center text-center ms-lg-2">
+                {% if request.user.is_authenticated %}
+                    <!-- <a href="{% url 'my_course' %}" class="btn mx-lg-1 mb-2 mb-lg-0" style="background-color: rgb(0, 208, 0);"><i class="bi bi-person-circle"></i></a> -->
+                    <a href="{% url 'logout' %}" class="btn btn-outline-danger mx-lg-1 mb-2 mb-lg-0" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn mx-lg-1 mb-2 mb-lg-0" style="background-color: rgb(0, 208, 0);">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-light mx-lg-1 mb-2 mb-lg-0">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
